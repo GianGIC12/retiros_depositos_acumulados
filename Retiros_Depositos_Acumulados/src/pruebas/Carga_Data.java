@@ -28,9 +28,12 @@ public class Carga_Data {
         
        
             
-        for (int i = 332; i < 340; i++) {
+       
+            
+        for (int i = 265; i < 270; i++) {
             
         
+ 
     
     
         Calendar calendar = Calendar.getInstance();
@@ -81,12 +84,12 @@ public class Carga_Data {
       //  c.completarObjetoDepositos1(num_dia);
         c.completarObjetoDepositos1A(num_dia);
         c.listarJugadores2();
-/*        
+      
          System.out.println("Insertando Registros en la BD*************");
-        c.completarObjetoDepositos1(num_dia);
+        c.insertarDatos();
         c.listarJugadores2();
         
-  */   
+     
         
         System.out.println("****Carga Exitosa*****");
         ExportarCSV e= new ExportarCSV();
