@@ -5,7 +5,9 @@
  */
 package pruebas;
 
+import archivos.ExportarCSV;
 import gestion.Consultas;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
 
@@ -18,7 +20,7 @@ public class Ejecucion {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
         // TODO code application logic here
 
         Calendar calendar = Calendar.getInstance();
@@ -70,6 +72,12 @@ public class Ejecucion {
         c.listarJugadores2();
         
   */   
+        
+        System.out.println("****Carga Exitosa*****");
+        ExportarCSV e= new ExportarCSV();
+        e.exportarResultados1(c.getJugadores(),c.getFechas1()[num_dia-1]);
+        
+        System.out.println("Exportación exitosa*************");
         
         
 

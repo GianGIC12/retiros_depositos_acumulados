@@ -256,6 +256,40 @@ public class Consultas {
 
     }
 
+     public void completarListaRetirosA(int diaNum) throws SQLException {
+
+        String fecha = "";
+
+        fecha = fechas2[diaNum - 1];
+
+        System.out.println("" + fecha);
+
+        
+
+        Conexion objCon = new Conexion();
+        objCon.conectar();
+
+        sql = "select distinct(iduser) as id_user from db_apuestatotal_prod.transaction_withdraw " + " where status_backoffice='Paid' " + " and substring(updated_at,1,10)= " + "'" + fecha + "'";
+
+        PreparedStatement stm = objCon.getCon().prepareStatement(sql);
+        ResultSet rs = stm.executeQuery();
+        int i = 0;
+
+        int id_user = 0;
+        while (rs.next()) {
+            i++;
+            System.out.println(i + " :" + rs.getInt("id_user"));
+
+            id_user = rs.getInt("id_user");
+            lista_retiros.add(id_user);
+
+        }
+
+        objCon.desconectar();
+
+    }
+
+    
     public void completarListaDepositos(int diaNum) throws SQLException {
 
         String fecha = "";
@@ -297,6 +331,48 @@ public class Consultas {
 
     }
 
+    public void completarListaDepositosA(int diaNum) throws SQLException {
+
+        String fecha = "";
+        String fecha2="";
+
+        fecha = fechas2[diaNum - 1];
+        fecha2=fechas2[diaNum];
+
+        System.out.println("" + fecha);
+
+        
+
+        Conexion objCon = new Conexion();
+        objCon.conectar();
+
+        sql = "select distinct(w.idUser) as id_user from db_apuestatotal_prod.wallet_transaction wt "
+                + " join db_apuestatotal_prod.wallet w"
+                + " on w.id=wt.idWallet"
+                + "  join db_apuestatotal_prod.user_user u "
+                + " on u.id=w.idUser "
+                + " where wt.status='2' " + " and substring(wt.updated_at,1,10)= " + "'" + fecha + "'";
+               
+
+        PreparedStatement stm = objCon.getCon().prepareStatement(sql);
+        ResultSet rs = stm.executeQuery();
+        int i = 0;
+
+        int id_user = 0;
+        while (rs.next()) {
+            i++;
+            System.out.println(i + " :" + rs.getInt("id_user"));
+
+            id_user = rs.getInt("id_user");
+            lista_depositos.add(id_user);
+
+        }
+
+        objCon.desconectar();
+
+    }
+
+    
     public void obtenerListaUsuarios() {
 
         lista_general.addAll(lista_retiros);
@@ -464,6 +540,57 @@ public class Consultas {
 
     }
 
+     public void completarObjetoRetiros1A(int dia) throws SQLException {
+
+        Conexion objCon = new Conexion();
+        objCon.conectar();
+
+        int k = 0;
+
+        for (JugadorBean jugador : jugadores) {
+
+            int id_user = jugador.getIdUser();
+            List<D_RBean> lista = new ArrayList<>();
+
+            for (int i = dia - 1; i < dia; i++) {
+
+                String fechita = fechas2[i];
+                float acum = 0;
+
+                D_RBean retiro = new D_RBean();
+                retiro.setFechaD(fechita);
+                retiro.setFechaR(fechita);
+
+                sql = "select idUser,substring(updated_at,1,10) as fechas,amount  from db_apuestatotal_prod.transaction_withdraw"
+                        + " where  status_backoffice='Paid' and "
+                        + "  substring(updated_at,1,10)= " + "'" + fechita + "'"
+                        + " and idUser= " + id_user;
+
+                k++;
+
+                System.out.println(k + " : " + " Id_User: " + id_user + " fecha: " + fechita);
+                PreparedStatement stm = objCon.getCon().prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+
+                while (rs.next()) {
+                    System.out.println("**********************Retiros***********************");
+                    acum = acum + rs.getFloat(3);
+
+                }
+
+                retiro.setRetiros(acum);
+
+                jugador.getListita().add(retiro);
+
+            }
+
+        }
+
+        objCon.desconectar();
+
+    }
+
+    
     public void completarObjetoDepositos1(int dia) throws SQLException {
 
         Conexion objCon = new Conexion();
@@ -513,6 +640,56 @@ public class Consultas {
 
     }
 
+    public void completarObjetoDepositos1A(int dia) throws SQLException {
+
+        Conexion objCon = new Conexion();
+        objCon.conectar();
+
+        int k = 0;
+
+        for (JugadorBean jugador : jugadores) {
+
+            int id_wallet = jugador.getIdwallet();
+            List<D_RBean> lista = new ArrayList<>();
+
+            for (int i = dia - 1; i < dia; i++) {
+
+                String fechita = fechas2[i];
+                float acum = 0;
+
+                D_RBean deposito = new D_RBean();
+                deposito.setFechaD(fechita);
+                deposito.setFechaR(fechita);
+
+                sql = "select idwallet,substring(updated_at,1,10) as fechas,amount from db_apuestatotal_prod.wallet_transaction "
+                        + " where status='2' and substring(updated_at,1,10)= " + "'" + fechita + "'"
+                        + " and idWallet= " + id_wallet;
+
+                k++;
+
+                System.out.println(k + " : " + " Id_Wallet: " + id_wallet + " fecha: " + fechita);
+                PreparedStatement stm = objCon.getCon().prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+
+                while (rs.next()) {
+                    System.out.println("**************Depositos**************");
+                    acum = acum + rs.getFloat(3);
+
+                }
+
+                deposito.setDepositos(acum);
+
+                jugador.getListita().add(deposito);
+
+            }
+
+        }
+
+        objCon.desconectar();
+
+    }
+
+    
     public void insertarDatos() throws SQLException {
 
         Conexion objCon = new Conexion();
@@ -524,10 +701,11 @@ public class Consultas {
             for (D_RBean listita : jugador.getListita()) {
 
                 sql = "insert into db_apuestatotal_prod.transactional_date "
-                        + "(id_user, id_wallet, last_name, email,date_colletion,amount_collection,date_deposit,amount_deposit) VALUES"
-                        + "(?,?,?,?,?,?,?,?)";
-
-                System.out.println(k + " : "
+                        + "(id_user, id_wallet, last_name, email,date_collection,amount_collection,date_deposit,amount_deposit) VALUES"
+                        + "("+jugador.getIdUser()+","+jugador.getIdwallet()+","+"'"+jugador.getApellido()+"'"+","+"'"+jugador.getEmail()+"'"
+                        +","+"'"+listita.getFechaR()+"'"+","+listita.getRetiros()+","+"'"+listita.getFechaD()+"'"+","+listita.getDepositos()+")";
+                System.out.println(sql);
+                System.out.println(k + " Grabando : "
                         + " Id_User: " + jugador.getIdUser()
                         + " id_wallet: " + jugador.getIdwallet()
                         + " Apellido : " + jugador.getApellido()
@@ -535,18 +713,11 @@ public class Consultas {
                         + " fecha_D: " + listita.getFechaD()
                         + " Depositos: " + listita.getDepositos()
                         + " fecha_R: " + listita.getFechaR()
-                        + " Retiros: " + listita.getFechaR());
+                        + " Retiros: " + listita.getRetiros());
 
                 PreparedStatement stm = objCon.getCon().prepareStatement(sql);
 
-                stm.setInt(1, jugador.getIdUser());
-                stm.setInt(2, jugador.getIdwallet());
-                stm.setString(3, jugador.getApellido());
-                stm.setString(4, jugador.getEmail());
-                stm.setString(5, listita.getFechaD());
-                stm.setFloat(6, listita.getDepositos());
-                stm.setString(7, listita.getFechaR());
-                stm.setFloat(8, listita.getRetiros());
+                
 
                 stm.executeUpdate(sql);
 
