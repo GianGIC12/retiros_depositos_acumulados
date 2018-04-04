@@ -558,4 +558,64 @@ public class Consultas {
 
     }
 
+    public List<Integer> getLista_retiros() {
+        return lista_retiros;
+    }
+
+    public void setLista_retiros(List<Integer> lista_retiros) {
+        this.lista_retiros = lista_retiros;
+    }
+
+    public List<Integer> getLista_depositos() {
+        return lista_depositos;
+    }
+
+    public void setLista_depositos(List<Integer> lista_depositos) {
+        this.lista_depositos = lista_depositos;
+    }
+
+    public List<Integer> getLista_general() {
+        return lista_general;
+    }
+
+    public void setLista_general(List<Integer> lista_general) {
+        this.lista_general = lista_general;
+    }
+
+    public String getSql() {
+        return sql;
+    }
+
+    public void setSql(String sql) {
+        this.sql = sql;
+    }
+
+    public String[] getFechas1() {
+        return fechas1;
+    }
+
+    public void setFechas1(String[] fechas1) {
+        this.fechas1 = fechas1;
+    }
+
+    public String[] getFechas2() {
+        return fechas2;
+    }
+
+    public void setFechas2(String[] fechas2) {
+        this.fechas2 = fechas2;
+    }
+
+    public List<JugadorBean> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<JugadorBean> jugadores) {
+        this.jugadores = jugadores;
+    }
+    
+    
+    
+    
+
 }

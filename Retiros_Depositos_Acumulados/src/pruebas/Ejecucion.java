@@ -37,6 +37,9 @@ public class Ejecucion {
         System.out.println("LLenando la fecha 2:*************");
         c.llenarFechas2();
         
+         System.out.println("Estamos en la fecha: " +c.getFechas1()[num_dia]);
+        
+        
 
         System.out.println("Completando Lista usuarios retiros*************************");
         c.completarListaRetiros(num_dia);
