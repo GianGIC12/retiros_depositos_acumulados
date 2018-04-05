@@ -30,7 +30,7 @@ public class Carga_Data {
             
        
             
-        for (int i = 265; i < 270; i++) {
+        for (int i = 1; i < 2; i++) {
             
         
  
@@ -53,17 +53,17 @@ public class Carga_Data {
         System.out.println("LLenando la fecha 2:*************");
         c.llenarFechas2();
    //Warning     
-         System.out.println("Estamos en la fecha: " +c.getFechas2()[num_dia]);
+         System.out.println("Estamos en la fecha: " +c.getFechas1()[num_dia]);
         
         
 
         System.out.println("Completando Lista usuarios retiros*************************");
-    //    c.completarListaRetiros(num_dia);
-        c.completarListaRetirosA(num_dia);
+     c.completarListaRetiros(num_dia);
+       // c.completarListaRetirosA(num_dia);
 
         System.out.println("Completando Lista usuarios depositos***********************");
-     //   c.completarListaDepositos(num_dia);
-       c.completarListaDepositosA(num_dia);
+       c.completarListaDepositos(num_dia);
+     //  c.completarListaDepositosA(num_dia);
         
          System.out.println("Completando Lista usuarios en general************************");
         c.obtenerListaUsuarios();
@@ -76,17 +76,17 @@ public class Carga_Data {
         c.listarjugadores();
   
         System.out.println("Completando objetos Retiros_Dia*************");
-    //  c.completarObjetoRetiros1(num_dia);
-        c.completarObjetoRetiros1A(num_dia);
+     c.completarObjetoRetiros1(num_dia);
+    //    c.completarObjetoRetiros1A(num_dia);
         c.listarJugadores2();
 
         System.out.println("Completando objetos Depositos_Dia*************");
-      //  c.completarObjetoDepositos1(num_dia);
-        c.completarObjetoDepositos1A(num_dia);
+        c.completarObjetoDepositos1(num_dia);
+      //  c.completarObjetoDepositos1A(num_dia);
         c.listarJugadores2();
       
          System.out.println("Insertando Registros en la BD*************");
-        c.insertarDatos();
+      //  c.insertarDatos();
         c.listarJugadores2();
         
      
@@ -94,7 +94,7 @@ public class Carga_Data {
         System.out.println("****Carga Exitosa*****");
         ExportarCSV e= new ExportarCSV();
        //Warning
-        e.exportarResultados1(c.getJugadores(),c.getFechas2()[num_dia-1]);
+        e.exportarResultados1(c.getJugadores(),c.getFechas1()[num_dia-1]);
         
         System.out.println("Exportación exitosa*************");
         

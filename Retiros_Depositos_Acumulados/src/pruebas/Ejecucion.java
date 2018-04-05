@@ -23,9 +23,14 @@ public class Ejecucion {
     public static void main(String[] args) throws SQLException, IOException {
         // TODO code application logic here
 
+        
+            
+        
+        
         Calendar calendar = Calendar.getInstance();
 
         int num_dia = calendar.get(Calendar.DAY_OF_YEAR);
+        
         System.out.println("" + num_dia);
 
         System.out.println("estamos en el día: " + num_dia);
@@ -66,12 +71,12 @@ public class Ejecucion {
         System.out.println("Completando objetos Depositos_Dia*************");
         c.completarObjetoDepositos1(num_dia);
         c.listarJugadores2();
-/*        
+        
          System.out.println("Insertando Registros en la BD*************");
-        c.completarObjetoDepositos1(num_dia);
+        c.insertarDatos();
         c.listarJugadores2();
         
-  */   
+   
         
         System.out.println("****Carga Exitosa*****");
         ExportarCSV e= new ExportarCSV();
