@@ -30,7 +30,7 @@ public class Ejecucion {
         Calendar calendar = Calendar.getInstance();
 
         int num_dia = calendar.get(Calendar.DAY_OF_YEAR);
-     
+
         
         System.out.println("" + num_dia);
 
@@ -84,7 +84,7 @@ public class Ejecucion {
         e.exportarResultados1(c.getJugadores(),c.getFechas1()[num_dia-1]);
         
         System.out.println("Exportación exitosa*************");
-        
+        System.out.println("Migración exitosa!!!!!!!!!!!!");
         
 
     }
