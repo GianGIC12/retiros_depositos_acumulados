@@ -33,7 +33,8 @@ public class Consultas {
     String[] fechas1;
     String[] fechas2;
     List<JugadorBean> jugadores;
-
+//Empieza el constructor
+    
     public Consultas() {
 
         lista_retiros = new ArrayList<>();
